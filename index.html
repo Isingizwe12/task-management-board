@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Task Management</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="flex justify-center items-center shadow-md p-6 bg-gray-100 ">
+        <!-- Navbar -->
+        <nav>
+   <h1 class=" text-lg font-bold text-blue-500">Task Management Board</h1>
+        </nav>
+    </header>
+    <main class="p-4 grid grid-cols-1 gap-6 md:gap-12 mt-6 md:grid-cols-3">
+<!-- Task to do -->
+   <section class=" p-4 bg-gray-200 rounded-lg shadow-md">
+    <h2 class="mb-4 text-lg font-bold">Task to do</h2>
+    <div class="gap-1 mb-4 ">
+        <input type="text" placeholder="Add a new task" class="border p-2 rounded w-3/4 outline-none border border-gray-400" />
+        <button class="bg-blue-600 p-2 w-20 rounded text-white shadow-md cursor-pointer hover:bg-blue-400 ">Add</button> 
+        <ul id="task-list" class="mt-4 ">
+       
+        </ul>
+    </div>
+   </section>
+
+   <!-- In progress -->
+  <section>
+  <h2 class="mb-4 text-lg font-bold"> In progress</h2>
+   <div id="in-progress-list" class="gap-1 mb-4">
+
+   </div>
+  </section>
+
+  <!-- Completed -->
+  <section>
+    <h2 class="mb-4 text-lg font-bold">Completed</h2>
+   <div id="completed-list" class="gap-1 mb-4">
+
+   </div>
+  </section>
+    </main>
+
+    <script src="assets/index.js"></script>
+</body>
+</html>

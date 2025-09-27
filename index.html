@@ -18,12 +18,15 @@
 <!-- Task to do -->
    <section class=" p-4 bg-gray-200 rounded-lg shadow-md">
     <h2 class="mb-4 text-lg font-bold">Task to do</h2>
-    <div class="gap-1 mb-4 ">
-        <input type="text" placeholder="Add a new task" class="border p-2 rounded w-3/4 outline-none border border-gray-400" />
-        <button class="bg-blue-600 p-2 w-20 rounded text-white shadow-md cursor-pointer hover:bg-blue-400 ">Add</button> 
+    <div class="mb-4 gap-2 flex flex-col   md:gap-1 md:flex-row">
+        <input type="text" placeholder="Add a new task" class="border p-2 rounded md:w-3/4 w-full outline-none border border-gray-400" />
+        <button class="bg-blue-600 p-2 md:w-20 w-full  rounded text-white shadow-md cursor-pointer hover:bg-blue-400 ">Add</button> 
+        </div>
+         <div>
         <ul id="task-list" class="mt-4 ">
        
         </ul>
+        
     </div>
    </section>
 

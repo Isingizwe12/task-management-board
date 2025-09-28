@@ -37,13 +37,7 @@ HTML5
 
 Tailwind CSS (via CDN)
 
-JavaScript (vanilla)
-
-├── index.html # Main HTML file
-├── assets/
-│ └── index.js # JavaScript logic for task management
-├── images/ # Folder for screenshots and images
-└── README.md # Project documentation       
+JavaScript (vanilla)   
 
 **Key Sections in index.html**
 

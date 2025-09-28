@@ -29,7 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 1, description: "Sample Task 1", status: "to-do", dueDate: "2025-09-30", priority: "high" },
         { id: 2, description: "Sample Task 2", status: "to-do", dueDate: "2025-10-05", priority: "low" },
         { id: 3, description: "Sample Task 3", status: "in-progress", dueDate: "2025-10-10", priority: "low" },
-        { id: 4, description: "Sample Task 4", status: "done", dueDate: "2025-10-15", priority: "high" }
+        { id: 4, description: "Sample Task 4", status: "done", dueDate: "2025-10-15", priority: "high" },
+        // Add previousStatus property for all tasks
+    allTasks.forEach(task => {
+    task.previousStatus = task.status;
+})
     ];
 
     // DOM refs
@@ -59,11 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // LEFT: description + due date (stacked vertically)
         const leftDiv = document.createElement("div");
+   
         // flex-1 so it takes remaining space; min-w-0 needed so child .truncate works inside flex
         leftDiv.classList.add('flex', 'flex-col', 'text-left', 'flex-1', 'min-w-0');
 
         const taskDescription = document.createElement("span");
         taskDescription.textContent = task.description;
+
+    let checkBoxInput = document.createElement("input");
+checkBoxInput.type = "checkbox";
+checkBoxInput.classList.add("mr-2");
+checkBoxInput.checked = task.status === "done";
+
+checkBoxInput.onchange = function () {
+    if (checkBoxInput.checked) {
+        task.previousStatus = task.status; // save current status before marking done
+        task.status = "done";
+       
+    } else {
+        task.status = task.previousStatus; // restore previous status
+       
+    }
+
+    saveTasks();
+    renderTasks(); // move task to correct list
+};
+
+taskDescription.prepend(checkBoxInput);
+
+
         // font-medium = slightly bolder; truncate = single-line + ... when overflow
         taskDescription.classList.add('font-medium', 'truncate');
         // show full description on hover (useful when truncated)

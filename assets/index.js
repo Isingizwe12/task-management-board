@@ -102,13 +102,65 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteTask(task.id);
         };
 
+  // EDIT button
+const editBtn = document.createElement("button");
+editBtn.textContent = "Edit";
+editBtn.classList.add(
+    'bg-blue-600', 'text-white', 'px-3', 'py-1',
+    'rounded', 'hover:bg-blue-700', 'text-sm', 'cursor-pointer', 'font-bold', 'mr-2'
+);
+
+editBtn.onclick = function (e) {
+    e.stopPropagation();
+    openEditForm(task);
+};
         // Assemble li
         li.appendChild(leftDiv);
         li.appendChild(priorityTask);
+        li.appendChild(editBtn);
         li.appendChild(deleteBtn);
 
         return li;
     }
+
+    
+//  modal for edit form
+function openEditForm(task) {
+    document.getElementById("edit-id").value = task.id;
+    document.getElementById("edit-description").value = task.description;
+    document.getElementById("edit-status").value = task.status;
+    document.getElementById("edit-date").value = task.dueDate;
+    document.getElementById("edit-priority").value = task.priority;
+
+    document.getElementById("edit-modal").classList.remove("hidden");
+}
+
+document.getElementById("cancel-edit").onclick = function() {
+    document.getElementById("edit-modal").classList.add("hidden");
+};
+
+document.getElementById("edit-task-form").onsubmit = function(e) {
+    e.preventDefault();
+
+    const id = parseInt(document.getElementById("edit-id").value);
+    const description = document.getElementById("edit-description").value.trim();
+    const status = document.getElementById("edit-status").value;
+    const dueDate = document.getElementById("edit-date").value;
+    const priority = document.getElementById("edit-priority").value;
+
+    const taskIndex = allTasks.findIndex(t => t.id === id);
+    if (taskIndex > -1) {
+        allTasks[taskIndex].description = description;
+        allTasks[taskIndex].status = status;
+        allTasks[taskIndex].dueDate = dueDate;
+        allTasks[taskIndex].priority = priority;
+    }
+
+    saveTasks();
+    renderTasks();
+
+    document.getElementById("edit-modal").classList.add("hidden");
+};
 
     // Render lists from allTasks
     function renderTasks() {
@@ -141,10 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateInput = document.getElementById("date").value;
         const priorityInput = document.getElementById("priority").value.trim();
 
-        if (!descriptionInput) {
-            alert('Please provide a description.');
-            return;
-        }
 
         // Use a timestamp as a unique id to avoid collisions if items were deleted/added
         const newTask = {

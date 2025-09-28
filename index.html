@@ -86,6 +86,45 @@
    </div>
   </section>
     </main>
+
+    <!-- Hidden edit form (modal ) -->
+<div id="edit-modal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-50 ">
+  <div class="bg-white p-6 rounded-lg w-96">
+    <h2 class="text-lg font-bold mb-4">Edit Task</h2>
+    <form id="edit-task-form" class="flex flex-col gap-4">
+      <input type="hidden" id="edit-id">
+
+      <label>Description:
+        <input type="text" id="edit-description" class="border p-2 w-full rounded">
+      </label>
+
+      <label>Status:
+        <select id="edit-status" class="border p-2 w-full rounded">
+          <option value="to-do">To-do</option>
+          <option value="in-progress">In-progress</option>
+          <option value="done">Done</option>
+        </select>
+      </label>
+
+      <label>Due Date:
+        <input type="date" id="edit-date" class="border p-2 w-full rounded">
+      </label>
+
+      <label>Priority:
+        <select id="edit-priority" class="border p-2 w-full rounded">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+
+      <div class="flex justify-end gap-2">
+        <button type="button" id="cancel-edit" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
  </div>
     <script src="assets/index.js"></script>
 </body>

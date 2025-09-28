@@ -56,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         li.classList.add(
             'w-full', 'bg-gray-50', 'p-4', 'rounded-md', 'shadow-md',
             'cursor-pointer', 'mb-4', 'flex', 'justify-between',
-            'items-center', 'text-gray-900', 'gap-4'
+            'items-center', 'text-gray-900', 'gap-4',
+            'md:flex-row', 'flex-col', // stack vertically on small screens
+            'md:w-full'// full width on md+ screens, fixed width on small
+
         );
         li.setAttribute('data-id', task.id);
         li.setAttribute('draggable', 'true');
@@ -93,9 +96,10 @@ taskDescription.prepend(checkBoxInput);
 
 
         // font-medium = slightly bolder; truncate = single-line + ... when overflow
-        taskDescription.classList.add('font-medium', 'truncate');
+        taskDescription.classList.add('font-medium', 'whitespace-normal', 'break-words');
         // show full description on hover (useful when truncated)
         taskDescription.title = task.description;
+        
 
         const taskDueDate = document.createElement("span");
         taskDueDate.textContent = `Due: ${task.dueDate}`;
@@ -123,7 +127,7 @@ taskDescription.prepend(checkBoxInput);
         deleteBtn.textContent = "Delete";
         deleteBtn.classList.add(
             'bg-red-700', 'text-white', 'px-3', 'py-1',
-            'rounded', 'hover:bg-red-800', 'text-sm', 'cursor-pointer', 'font-bold'
+            'rounded', 'hover:bg-red-800', 'w-full','md:w-20','text-sm', 'cursor-pointer', 'font-bold'
         );
         deleteBtn.onclick = function (e) {
             e.stopPropagation();
@@ -135,7 +139,7 @@ const editBtn = document.createElement("button");
 editBtn.textContent = "Edit";
 editBtn.classList.add(
     'bg-blue-600', 'text-white', 'px-3', 'py-1',
-    'rounded', 'hover:bg-blue-700', 'text-sm', 'cursor-pointer', 'font-bold', 'mr-2'
+    'rounded', 'hover:bg-blue-700','w-full','md:w-20', 'text-sm', 'cursor-pointer', 'font-bold', 'mr-2'
 );
 
 editBtn.onclick = function (e) {

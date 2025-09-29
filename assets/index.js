@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 3, description: "Sample Task 3", status: "in-progress", dueDate: "2025-10-10", priority: "low" },
         { id: 4, description: "Sample Task 4", status: "done", dueDate: "2025-10-15", priority: "high" },
         // Add previousStatus property for all tasks
-    allTasks.forEach(task => {
-    task.previousStatus = task.status;
-})
+    
     ];
+    // allTasks.forEach(task => {
+    // task.previousStatus = task.status;})
 
     // DOM refs
     const taskList = document.getElementById("task-list");
@@ -73,26 +73,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskDescription = document.createElement("span");
         taskDescription.textContent = task.description;
 
-    let checkBoxInput = document.createElement("input");
+  let checkBoxInput = document.createElement("input");
 checkBoxInput.type = "checkbox";
 checkBoxInput.classList.add("mr-2");
 checkBoxInput.checked = task.status === "done";
 
+
 checkBoxInput.onchange = function () {
     if (checkBoxInput.checked) {
-        task.previousStatus = task.status; // save current status before marking done
+        // Save the current status only if it's not already done
+        if (task.status !== "done") {
+            task.previousStatus = task.status;
+        }
         task.status = "done";
-       
     } else {
-        task.status = task.previousStatus; // restore previous status
-       
+        // Go back to whatever the status was before marking done
+        task.status = task.previousStatus || "to-do";
     }
 
+    console.log("Status:", task.status, "Prev:", task.previousStatus);
+
     saveTasks();
-    renderTasks(); // move task to correct list
+    renderTasks();
 };
 
-taskDescription.prepend(checkBoxInput);
+
+      taskDescription.prepend(checkBoxInput);
 
 
         // font-medium = slightly bolder; truncate = single-line + ... when overflow
@@ -129,10 +135,13 @@ taskDescription.prepend(checkBoxInput);
             'bg-red-700', 'text-white', 'px-3', 'py-1',
             'rounded', 'hover:bg-red-800', 'w-full','md:w-20','text-sm', 'cursor-pointer', 'font-bold'
         );
-        deleteBtn.onclick = function (e) {
-            e.stopPropagation();
-            deleteTask(task.id);
-        };
+     deleteBtn.onclick = function (e) {
+    e.stopPropagation();
+    const confirmDelete = confirm("Are you sure you want to delete this task?");
+    if (confirmDelete) {
+        deleteTask(task.id);
+    }
+};
 
   // EDIT button
 const editBtn = document.createElement("button");
@@ -232,7 +241,8 @@ document.getElementById("edit-task-form").onsubmit = function(e) {
             description: descriptionInput,
             status: statusInput || 'to-do',
             dueDate: dateInput || '',
-            priority: priorityInput || 'low'
+            priority: priorityInput || 'low',
+            previousStatus: statusInput || 'to-do'
         };
 
         allTasks.push(newTask);
